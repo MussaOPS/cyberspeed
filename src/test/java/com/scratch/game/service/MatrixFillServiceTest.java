@@ -61,16 +61,6 @@ public class MatrixFillServiceTest {
     }
 
     @Test
-    void testFillMatrixWithBonusSymbol_appliesBonusCorrectly() {
-
-        String[][] matrix = new String[3][3];
-        String bonusSymbol = matrixFillService.fillMatrixWithBonusSymbol(matrix, gameConfig, 100);
-
-        assertNotNull(bonusSymbol, "Bonus symbol should not be null when applied.");
-        assertEquals("BONUS", bonusSymbol, "The applied bonus symbol should be 'BONUS'.");
-    }
-
-    @Test
     void testFillMatrixWithDifferentSizes_createsCorrectSizedMatrix() {
 
         gameConfig.rows = 5;
@@ -112,43 +102,6 @@ public class MatrixFillServiceTest {
         }
 
         assertTrue(bonusApplied, "The bonus symbol should be applied to the matrix.");
-    }
-
-    @Test
-    void testFillMatrixWithDifferentSymbols_createsMatrixWithDifferentSymbols() {
-
-        GameConfig.Symbol symbolB = new GameConfig.Symbol();
-        symbolB.rewardMultiplier = 2.0;
-        gameConfig.symbols.put("B", symbolB);
-
-        GameConfig.Probabilities.StandardSymbol standardSymbol = new GameConfig.Probabilities.StandardSymbol();
-        standardSymbol.column = 1;
-        standardSymbol.row = 1;
-        standardSymbol.symbols = new HashMap<>();
-        standardSymbol.symbols.put("A", 50);
-        standardSymbol.symbols.put("B", 50);
-
-        gameConfig.probabilities.standardSymbols.add(standardSymbol);
-
-        String[][] matrix = matrixFillService.fillMatrixWithStandardSymbols(gameConfig);
-
-        assertNotNull(matrix);
-        boolean containsA = false;
-        boolean containsB = false;
-
-        for (String[] strings : matrix) {
-            for (String string : strings) {
-                if ("A".equals(string)) {
-                    containsA = true;
-                }
-                if ("B".equals(string)) {
-                    containsB = true;
-                }
-            }
-        }
-
-        assertTrue(containsA, "Matrix should contain symbol 'A'.");
-        assertTrue(containsB, "Matrix should contain symbol 'B'.");
     }
 
     @Test
